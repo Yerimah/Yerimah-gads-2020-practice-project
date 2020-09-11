@@ -1,0 +1,117 @@
+# LAB: Google cloud fundamentals: Getting started with cloud marketplace
+
+## Objectives
+In this lab, you learn how to perform the following tasks:
+
+	. Get access to Google Cloud.
+
+	. Create a Cloud Storage bucket using the Cloud Console.
+
+	. Create a Cloud Storage bucket using Cloud Shell.
+
+	. Become familiar with Cloud Shell features.
+	
+# Steps:
+
+	1. Click Create bucket and For Name, type a globally unique bucket name, and leave all other values as their defaults
+	
+			gsutil mb gs://yerimah
+			
+	2. Use the gsutil command to create another bucket. Replace <BUCKET_NAME> with a globally unique name 
+	(you can append a 2 to the globally unique bucket name you used previously)
+	
+			gsutil mb gs://yerimah-shell
+			
+		-click Refresh if you are already in the Storage Browser. The second bucket should be displayed in the Buckets list
+	
+			gcloud compute buckets list
+	
+	
+		-Click the three dots icon in the Cloud Shell toolbar to display further options and Click Upload file. Upload any file from your local machine to the Cloud Shell VM. 
+	This file will be referred to as [MY_FILE]
+	
+		-Copy the file into one of the buckets you created earlier in the lab. 
+	Replace [MY_FILE] with the file you uploaded and [BUCKET_NAME] with one of your bucket names
+	
+			gsutil cp [MY_FILE] gs://yerimah-shell
+			
+		- Results: You have uploaded a file to the Cloud Shell VM and copied it to a bucket	
+	
+	
+	3. To list available regions, execute the following command
+	
+			gcloud compute regions list
+			
+		- Select a region from the list and note the value in any text editor. 
+		This region will now be referred to as [YOUR_REGION] in the remainder of the lab
+
+	4. Create an environment variable and replace [YOUR_REGION] with the region you selected in the previous step
+	
+			INFRACLASS_REGION=us-central1
+			
+		- Verify it with echo
+		
+			echo $INFRACLASS_REGION
+			
+			You can use environment variables like this in gcloud commands to reduce the opportunities for typos, 
+			and so that you won't have to remember a lot of detailed information
+			
+	5. Create a subdirectory for materials used in this class
+
+			mkdir infraclass
+			
+		- Create a file called config in the infraclass directory
+		
+			touch infraclass/config
+			
+		- Append the value of your Region environment variable to the config file
+
+			echo INFRACLASS_REGION=$INFRACLASS_REGION >> ~/infraclass/config
+			
+		- Create a second environment variable for your Project ID, 
+		replacing [YOUR_PROJECT_ID] with your Project ID. You can find the project ID on the Cloud Console Home page
+		
+			INFRACLASS_PROJECT_ID=[YOUR_PROJECT_ID]
+		
+	
+		- Append the value of your Project ID environment variable to the config file
+		
+			echo INFRACLASS_PROJECT_ID=$INFRACLASS_PROJECT_ID >> ~/infraclass/config
+			
+		- Use the source command to set the environment variables, 
+		and use the echo command to verify that the project variable was set
+		
+			source infraclass/config echo $INFRACLASS_PROJECT_ID
+		
+		- Close and re-open Cloud Shell. Then issue the echo command again
+		
+			echo $INFRACLASS_PROJECT_ID
+			
+		- Result: There will be no output because the environment variable no longer exists
+		
+	6. Edit the shell profile with the following command:
+	
+			nano .profile
+			
+		- Add the following line to the end of the file
+		
+			source infraclass/config
+			
+		- Save the file and exit the nano editor
+		
+		Use the echo command to verify that the variable is still set
+		
+			echo $INFRACLASS_PROJECT_ID
+			
+		- Results: You should now see the expected value that you set in the config file
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
